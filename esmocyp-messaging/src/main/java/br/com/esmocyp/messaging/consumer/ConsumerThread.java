@@ -26,8 +26,6 @@ public class ConsumerThread implements Runnable {
         this.consumer = consumer;
         this.callback = callback;
         this.consumer.subscribe( Arrays.asList( topicName ) );
-
-        run();
     }
 
     public void run() {

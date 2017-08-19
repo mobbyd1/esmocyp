@@ -30,6 +30,9 @@ public class MessageConsumerDLOImpl implements MessageConsumerDLO {
         KafkaConsumer<String, String> consumer = new KafkaConsumer
                 <String, String>(props);
 
-        new ConsumerThread( consumer, topicName, callback );
+        final ConsumerThread consumerThread = new ConsumerThread(consumer, topicName, callback);
+
+        final Thread thread = new Thread(consumerThread);
+        thread.start();
     }
 }

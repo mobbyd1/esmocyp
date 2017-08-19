@@ -3,9 +3,15 @@ package br.com.esmocyp.reasoning.service;
 import br.com.esmocyp.messaging.model.RdfMessage;
 import eu.larkc.csparql.cep.api.RdfQuadruple;
 import eu.larkc.csparql.cep.api.RdfStream;
+import eu.larkc.csparql.common.utils.CsparqlUtils;
+import eu.larkc.csparql.common.utils.ReasonerChainingType;
+import eu.larkc.csparql.core.engine.ConsoleFormatter;
+import eu.larkc.csparql.core.engine.CsparqlEngineImpl;
+import eu.larkc.csparql.core.engine.CsparqlQueryResultProxy;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 
 /**
  * Created by ruhandosreis on 18/08/17.
@@ -20,7 +26,44 @@ public class StreamReasoningDLOImpl extends RdfStream implements StreamReasoning
     }
 
     @PostConstruct
-    public void init() {
+    public void init() throws Exception {
+
+        final ClassLoader classLoader = StreamReasoningDLOImpl.class.getClassLoader();
+
+        //Create csparql engine instance
+        final CsparqlEngineImpl engine = new CsparqlEngineImpl();
+        //Initialize the engine instance
+        //The initialization creates the static engine (SPARQL) and the stream engine (CEP)
+        engine.initialize();
+
+        String queryBody = "REGISTER QUERY staticKnowledge AS "
+                + "PREFIX :<urn:x-hp:eg/> "
+                + "SELECT ?p "
+                + "FROM STREAM <http://streamreasoning.org/streams/hospital> [RANGE 1s STEP 1s] "
+                + "FROM <http://streamreasoning.org/hospital-data> "
+                + "WHERE { "
+                + "?p a :NaoVeioTrabalhar . "
+                + "} ";
+
+        File esmocypData = new File(classLoader.getResource("esmocypData.rdf").getFile());
+        String roomConnectionPath = esmocypData.getAbsolutePath();
+
+        engine.putStaticNamedModel("http://streamreasoning.org/hospital-data", CsparqlUtils.serializeRDFFile(roomConnectionPath));
+
+        //Register new query in the engine
+        CsparqlQueryResultProxy c = engine.registerQuery(queryBody, false);
+
+        //Attach a result consumer to the query result proxy to print the results on the console
+        c.addObserver(new ConsoleFormatter());
+
+        File tboxFile = new File(classLoader.getResource("tbox-esmocyp.rdf").getFile());
+        String tboxPath = tboxFile.getAbsolutePath();
+
+        engine.updateReasoner(
+                c.getSparqlQueryId()
+                , ""
+                , ReasonerChainingType.BACKWARD
+                , CsparqlUtils.serializeRDFFile( tboxPath ) );
 
     }
 
@@ -38,4 +81,3 @@ public class StreamReasoningDLOImpl extends RdfStream implements StreamReasoning
         this.put( q );
     }
 }
-te
