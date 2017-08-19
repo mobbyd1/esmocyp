@@ -29,9 +29,9 @@ public class CEPController {
     @PostConstruct
     public void init() {
         final Configuration cepConfig = new Configuration();
-        cepConfig.addEventType("puc.esmocyp.DoctorSensorData", DoctorSensorData.class.getName());
-        cepConfig.addEventType("puc.esmocyp.LeavingRoomSensorData", LeavingRoomSensorData.class.getName());
-        cepConfig.addEventType("puc.esmocyp.EnteringRoomSensorData", EnteringRoomSensorData.class.getName());
+        cepConfig.addEventType("DoctorSensorData", DoctorSensorData.class.getName());
+        cepConfig.addEventType("LeavingRoomSensorData", LeavingRoomSensorData.class.getName());
+        cepConfig.addEventType("EnteringRoomSensorData", EnteringRoomSensorData.class.getName());
 
         cepConfig.addPlugInSingleRowFunction("gpsIsInArea",
                 GPSIsInArea.class.getName(), "gpsIsInArea");
@@ -42,22 +42,22 @@ public class CEPController {
         epRuntime = cep.getEPRuntime();
         final EPAdministrator cepAdm = cep.getEPAdministrator();
 
-        EPStatement eplDoctor = cepAdm.createEPL("SELECT DISTINCT idSmartphone" +
-                "FROM puc.esmocyp.DoctorSensorData.win:time_batch(60 sec) " +
-                "WHERE gpsIsInArea(latitude,longitude) = false"
+        EPStatement eplDoctor = cepAdm.createEPL("SELECT DISTINCT idSmartphone " +
+                "FROM DoctorSensorData.win:time_batch(60 sec) " +
+                "WHERE gpsIsInArea(latitude, longitude) = false"
         );
 
         cepAdm.createEPL(
                 "INSERT INTO CountEnteringRoomSensorData " +
                         "SELECT ER.roomId as roomId, count(*) as count " +
-                        "FROM puc.esmocyp.EnteringRoomSensorData.win:time(60 sec) as ER " +
+                        "FROM EnteringRoomSensorData.win:time(60 sec) as ER " +
                         "GROUP BY ER.roomId"
         );
 
         cepAdm.createEPL(
                 "INSERT INTO CountLeavingRoomSensorData " +
                         "SELECT LR.roomId as roomId, count(*) as count " +
-                        "FROM puc.esmocyp.LeavingRoomSensorData.win:time(60 sec) as LR " +
+                        "FROM LeavingRoomSensorData.win:time(60 sec) as LR " +
                         "GROUP BY LR.roomId"
         );
 

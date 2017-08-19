@@ -8,6 +8,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
+import java.util.Arrays;
+
 /**
  * Created by ruhandosreis on 16/08/17.
  */
@@ -16,8 +18,16 @@ public class ConsumerThread implements Runnable {
     private KafkaConsumer<String, String> consumer;
     private MessageConsumerCallback callback;
 
-    public ConsumerThread( final KafkaConsumer<String, String> consumer ) {
+    public ConsumerThread(
+                final KafkaConsumer<String, String> consumer
+            ,   final String topicName
+            ,   final MessageConsumerCallback callback ) {
+
         this.consumer = consumer;
+        this.callback = callback;
+        this.consumer.subscribe( Arrays.asList( topicName ) );
+
+        run();
     }
 
     public void run() {

@@ -13,8 +13,6 @@ import java.util.Properties;
  */
 public class MessageConsumerDLOImpl implements MessageConsumerDLO {
 
-    private Map<String, MessageConsumerCallback> callbackMap = new HashMap<String, MessageConsumerCallback>();
-
     public void registerConsumer(EsmocypTopic topic, MessageConsumerCallback callback) {
         final String topicName = topic.toString();
 
@@ -26,12 +24,12 @@ public class MessageConsumerDLOImpl implements MessageConsumerDLO {
         props.put("auto.commit.interval.ms", "1000");
         props.put("session.timeout.ms", "30000");
         props.put("key.deserializer",
-                "org.apache.kafka.common.serializa-tion.StringDeserializer");
+                "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer",
-                "org.apache.kafka.common.serializa-tion.StringDeserializer");
+                "org.apache.kafka.common.serialization.StringDeserializer");
         KafkaConsumer<String, String> consumer = new KafkaConsumer
                 <String, String>(props);
 
-        consumer.subscribe(Arrays.asList( topicName ) );
+        new ConsumerThread( consumer, topicName, callback );
     }
 }

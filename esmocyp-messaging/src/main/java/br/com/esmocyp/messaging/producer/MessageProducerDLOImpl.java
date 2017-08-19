@@ -23,32 +23,31 @@ public class MessageProducerDLOImpl implements MessageProducerDLO {
     @PostConstruct
     public void init() {
 
-        System.out.println("MessageProducerDLO - INIT");
-//        //Assign localhost id
-//        properties.put("bootstrap.servers", "localhost:9092");
-//
-//        //Set acknowledgements for br.com.esmocyp.messaging.producer requests.
-//        properties.put("acks", "all");
-//
-//        //If the request fails, the br.com.esmocyp.messaging.producer can automatically retry,
-//        properties.put("retries", 0);
-//
-//        //Specify buffer size in config
-//        properties.put("batch.size", 16384);
-//
-//        //Reduce the no of requests less than 0
-//        properties.put("linger.ms", 1);
-//
-//        //The buffer.memory controls the total amount of memory available to the br.com.esmocyp.messaging.producer for buffering.
-//        properties.put("buffer.memory", 33554432);
-//
-//        properties.put("key.serializer",
-//                "org.apache.kafka.common.serializa-tion.StringSerializer");
-//
-//        properties.put("value.serializer",
-//                "org.apache.kafka.common.serializa-tion.StringSerializer");
-//
-//        producer = new KafkaProducer<String, String>(properties);
+        //Assign localhost id
+        properties.put("bootstrap.servers", "localhost:9092");
+
+        //Set acknowledgements for br.com.esmocyp.messaging.producer requests.
+        properties.put("acks", "all");
+
+        //If the request fails, the br.com.esmocyp.messaging.producer can automatically retry,
+        properties.put("retries", 0);
+
+        //Specify buffer size in config
+        properties.put("batch.size", 16384);
+
+        //Reduce the no of requests less than 0
+        properties.put("linger.ms", 1);
+
+        //The buffer.memory controls the total amount of memory available to the br.com.esmocyp.messaging.producer for buffering.
+        properties.put("buffer.memory", 33554432);
+
+        properties.put("key.serializer",
+                "org.apache.kafka.common.serialization.StringSerializer");
+
+        properties.put("value.serializer",
+                "org.apache.kafka.common.serialization.StringSerializer");
+
+        producer = new KafkaProducer<String, String>(properties);
     }
 
     public void produceMessage(EsmocypTopic topic, IMessage message) {

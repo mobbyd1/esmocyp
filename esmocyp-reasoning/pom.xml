@@ -4,11 +4,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>esmocyp</artifactId>
-        <groupId>br.com.esmocyp.cep.stream-reasoning</groupId>
+        <groupId>stream-reasoning</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>esmocyp-reasoning</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>stream-reasoning</groupId>
+            <artifactId>esmocyp-messaging</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.larkc.csparql</groupId>
+            <artifactId>csparql-core</artifactId>
+            <version>0.9.7</version>
+        </dependency>
+    </dependencies>
 
 </project>
