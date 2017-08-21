@@ -29,8 +29,22 @@
         <rdfs:range rdf:resource="&eg;Smartphone" />
     </owl:ObjectProperty>
 
+    <owl:ObjectProperty rdf:about="&eg;temSala">
+        <rdfs:domain rdf:resource="&eg;Medico" />
+        <rdfs:range rdf:resource="&eg;Sala" />
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&eg;temMedico">
+        <rdfs:domain rdf:resource="&eg;Sala" />
+        <rdfs:range rdf:resource="&eg;Medico" />
+    </owl:ObjectProperty>
+
     <owl:Class rdf:about="&eg;NaoEncontrado">
         <rdfs:subClassOf rdf:resource="&eg;Smartphone" />
+    </owl:Class>
+
+    <owl:Class rdf:about="eg;SalaCheia">
+        <rdfs:subClassOf rdf:resource="&eg;Sala" />
     </owl:Class>
 
     <owl:Class rdf:about="&eg;NaoVeioTrabalhar">
@@ -42,6 +56,20 @@
                         <owl:someValuesFrom rdf:resource="&eg;NaoEncontrado" />
                     </owl:Restriction>
                     <owl:Class rdf:about="&eg;Medico" />
+                </owl:intersectionOf>
+            </rdf:Description>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="&eg;SalaComGargalo">
+        <owl:equivalentClass>
+            <rdf:Description>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&eg;temMedico" />
+                        <owl:someValuesFrom rdf:resource="&eg;NaoVeioTrabalhar" />
+                    </owl:Restriction>
+                    <owl:Class rdf:about="&eg;SalaCheia" />
                 </owl:intersectionOf>
             </rdf:Description>
         </owl:equivalentClass>

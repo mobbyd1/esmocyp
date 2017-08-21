@@ -5,7 +5,7 @@ import com.espertech.esper.client.EPRuntime;
 /**
  * Created by ruhan on 28/05/17.
  */
-public class DoctorSensorDataStream extends Thread {
+public class DoctorSensorDataStream implements Runnable {
 
     private static final String SMARTPHONE_ID = "smartphoneDoRuhan";
     private EPRuntime epRuntime;
@@ -17,7 +17,7 @@ public class DoctorSensorDataStream extends Thread {
     @Override
     public void run() {
 
-        for(;;) {
+        while(true) {
 
             final DoctorSensorData doctorSensorData = new DoctorSensorData();
 
@@ -28,7 +28,7 @@ public class DoctorSensorDataStream extends Thread {
             epRuntime.sendEvent( doctorSensorData );
 
             try {
-                Thread.sleep( 1000 );
+                Thread.sleep( 1 );
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

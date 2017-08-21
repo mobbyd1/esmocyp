@@ -1,11 +1,11 @@
 package br.com.esmocyp.cep.service;
 
+import br.com.esmocyp.cep.model.EnteringRoomSensorData;
+import br.com.esmocyp.cep.model.LeavingRoomSensorData;
 import com.espertech.esper.client.*;
 import br.com.esmocyp.cep.listeners.DoctorEventListener;
 import br.com.esmocyp.cep.listeners.FullRoomEventListener;
 import br.com.esmocyp.messaging.model.DoctorSensorData;
-import br.com.esmocyp.messaging.model.EnteringRoomSensorData;
-import br.com.esmocyp.messaging.model.LeavingRoomSensorData;
 import br.com.esmocyp.cep.util.GPSIsInArea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,30 +43,33 @@ public class CEPController {
         final EPAdministrator cepAdm = cep.getEPAdministrator();
 
         EPStatement eplDoctor = cepAdm.createEPL("SELECT DISTINCT idSmartphone " +
-                "FROM DoctorSensorData.win:time_batch(60 sec) " +
+                "FROM DoctorSensorData.win:time_batch(1 sec) " +
                 "WHERE gpsIsInArea(latitude, longitude) = false"
         );
 
         cepAdm.createEPL(
                 "INSERT INTO CountEnteringRoomSensorData " +
                         "SELECT ER.roomId as roomId, count(*) as count " +
-                        "FROM EnteringRoomSensorData.win:time(60 sec) as ER " +
+                        "FROM EnteringRoomSensorData.win:time(1 sec) as ER " +
                         "GROUP BY ER.roomId"
         );
 
         cepAdm.createEPL(
                 "INSERT INTO CountLeavingRoomSensorData " +
                         "SELECT LR.roomId as roomId, count(*) as count " +
-                        "FROM LeavingRoomSensorData.win:time(60 sec) as LR " +
+                        "FROM LeavingRoomSensorData.win:time(1 sec) as LR " +
                         "GROUP BY LR.roomId"
         );
 
         EPStatement eplFullRoom = cepAdm.createEPL(
-                "SELECT CER.roomId as roomId " +
-                        "FROM CountEnteringRoomSensorData.win:time(60 sec) as CER, " +
-                        "       CountLeavingRoomSensorData.win:time(60 sec) as CLR " +
-                        "WHERE CER.roomId = CLR.roomId " +
-                        "AND CER.count > CLR.count limit 1"
+                "SELECT CER.count as enteringCount" +
+                        " , CER.roomId as enteringRoomId" +
+                        " , CLR.count as leavingCount" +
+                        " , CLR.roomId as  leavingRoomId " +
+                        "FROM CountEnteringRoomSensorData.win:time(1 sec) as CER " +
+                        "LEFT OUTER JOIN " +
+                        "       CountLeavingRoomSensorData.win:time(1 sec) as CLR " +
+                        "ON CER.roomId = CLR.roomId "
         );
 
         eplDoctor.addListener( doctorEventListener );

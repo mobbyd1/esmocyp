@@ -24,14 +24,20 @@ public class FullRoomEventListener implements UpdateListener {
 
         for ( int i = 0; i < eventBeans.length; i++ ) {
             final EventBean eventBean = eventBeans[i];
-            final String roomId = ( String ) eventBean.get("roomId");
 
-            final RdfMessage rdfMessage = new RdfMessage();
-            rdfMessage.setSubject( BASE_URL + roomId );
-            rdfMessage.setPredicate( "rdf:type" );
-            rdfMessage.setObject( BASE_URL + "SalaCheia" );
+            final Long leavingCount = ( Long ) eventBean.get("leavingCount");
+            final Long enteringCount =  ( Long ) eventBean.get("enteringCount");
 
-            messageProducerDLO.produceMessage( EsmocypTopic.CEP_RESULT_TOPIC, rdfMessage );
+            final String roomId = ( String ) eventBean.get("enteringRoomId");
+
+            if( ( leavingCount == null && enteringCount != null ) || enteringCount > leavingCount ) {
+                final RdfMessage rdfMessage = new RdfMessage();
+                rdfMessage.setSubject(BASE_URL + roomId);
+                rdfMessage.setPredicate("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+                rdfMessage.setObject(BASE_URL + "SalaCheia");
+
+                messageProducerDLO.produceMessage( EsmocypTopic.CEP_RESULT_TOPIC, rdfMessage );
+            }
         }
     }
 }

@@ -21,9 +21,16 @@
           <Smartphone rdf:about="&eg;smartphoneDoRuhan">
           </Smartphone>
       </temSmartphone>
+      <temSala>
+        <Sala rdf:about="&eg;salaDoRuhan">
+        </Sala>
+      </temSala>
   </Medico>
 
-   <Smartphone rdf:about="&eg;smartphone123">
-   </Smartphone>
+  <Sala rdf:about="&eg;salaDoRuhan">
+    <temMedico>
+        <Medico rdf:about="&eg;Ruhan" />
+    </temMedico>
+  </Sala>
 
 </rdf:RDF>

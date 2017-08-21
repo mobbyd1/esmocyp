@@ -23,9 +23,13 @@ public class Main {
         final EPRuntime epRuntime = cepController.getEpRuntime();
 
         final DoctorSensorDataStream doctorSensorDataStream = new DoctorSensorDataStream(epRuntime);
-        doctorSensorDataStream.start();
+        final Thread doctorThread = new Thread(doctorSensorDataStream);
+
+        doctorThread.start();
 
         final SensorDataStream sensorDataStream = new SensorDataStream(epRuntime);
-        sensorDataStream.start();
+        Thread sensorThread = new Thread(sensorDataStream);
+
+        sensorThread.start();
     }
 }

@@ -16,13 +16,14 @@ import java.io.File;
 /**
  * Created by ruhandosreis on 18/08/17.
  */
+
 @Component
 public class StreamReasoningDLOImpl extends RdfStream implements StreamReasoningDLO {
 
     private static String BASE_URL = "urn:x-hp:eg/";
 
     public StreamReasoningDLOImpl() {
-        super( BASE_URL );
+        super( "http://streamreasoning.org/streams/hospital" );
     }
 
     @PostConstruct
@@ -38,17 +39,19 @@ public class StreamReasoningDLOImpl extends RdfStream implements StreamReasoning
 
         String queryBody = "REGISTER QUERY staticKnowledge AS "
                 + "PREFIX :<urn:x-hp:eg/> "
-                + "SELECT ?p "
-                + "FROM STREAM <http://streamreasoning.org/streams/hospital> [RANGE 1s STEP 1s] "
+                + "SELECT ?s "
+                + "FROM STREAM <http://streamreasoning.org/streams/hospital> [RANGE 5s STEP 1s] "
                 + "FROM <http://streamreasoning.org/hospital-data> "
                 + "WHERE { "
-                + "?p a :NaoVeioTrabalhar . "
+                + "?s a :SalaComGargalo . "
                 + "} ";
 
         File esmocypData = new File(classLoader.getResource("esmocypData.rdf").getFile());
         String roomConnectionPath = esmocypData.getAbsolutePath();
 
         engine.putStaticNamedModel("http://streamreasoning.org/hospital-data", CsparqlUtils.serializeRDFFile(roomConnectionPath));
+
+        engine.registerStream(this);
 
         //Register new query in the engine
         CsparqlQueryResultProxy c = engine.registerQuery(queryBody, false);

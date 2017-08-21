@@ -18,7 +18,7 @@ public class ConvertableDeserializer<T extends IMessage> implements JsonDeserial
         final String className = prim.getAsString();
 
         final Class<T> clazz = getClassInstance(className);
-        return jsonDeserializationContext.deserialize(jsonObject.get(className), clazz);
+        return jsonDeserializationContext.deserialize(jsonObject, clazz);
     }
 
     @SuppressWarnings("unchecked")

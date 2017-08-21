@@ -28,7 +28,7 @@ public class DoctorEventListener implements UpdateListener {
 
             final RdfMessage rdfMessage = new RdfMessage();
             rdfMessage.setSubject( BASE_URL + idSmartphone );
-            rdfMessage.setPredicate( "rdf:type" );
+            rdfMessage.setPredicate( "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" );
             rdfMessage.setObject( BASE_URL + "NaoEncontrado" );
 
             messageProducerDLO.produceMessage( EsmocypTopic.CEP_RESULT_TOPIC, rdfMessage );

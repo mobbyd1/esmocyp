@@ -36,7 +36,7 @@ public class ConsumerThread implements Runnable {
         final Gson gson = builder.create();
 
         while( true ) {
-            final ConsumerRecords<String, String> records = consumer.poll( Long.MAX_VALUE );
+            final ConsumerRecords<String, String> records = consumer.poll( 1000 );
 
             for( final ConsumerRecord<String, String> record : records ) {
                 final String value = record.value();

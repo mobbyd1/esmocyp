@@ -1,4 +1,4 @@
-package br.com.esmocyp.messaging.model;
+package br.com.esmocyp.cep.model;
 
 /**
  * Created by ruhandosreis on 29/04/17.

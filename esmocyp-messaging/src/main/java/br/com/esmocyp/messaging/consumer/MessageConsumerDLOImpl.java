@@ -2,6 +2,7 @@ package br.com.esmocyp.messaging.consumer;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import br.com.esmocyp.messaging.topic.EsmocypTopic;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.Properties;
 /**
  * Created by ruhandosreis on 16/08/17.
  */
+@Component
 public class MessageConsumerDLOImpl implements MessageConsumerDLO {
 
     public void registerConsumer(EsmocypTopic topic, MessageConsumerCallback callback) {
