@@ -33,4 +33,10 @@
     </temMedico>
   </Sala>
 
+  <Sala rdf:about="&eg;saladeEspera1">
+    <hasConnectionTo>
+        <Sala rdf:about="&eg;salaDoRuhan" />
+    </hasConnectionTo>
+  </Sala>
+
 </rdf:RDF>

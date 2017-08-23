@@ -39,6 +39,11 @@
         <rdfs:range rdf:resource="&eg;Medico" />
     </owl:ObjectProperty>
 
+    <owl:ObjectProperty rdf:about="&eg;hasConnectionTo">
+        <rdfs:domain rdf:resource="&eg;Sala" />
+        <rdfs:range rdf:resource="&eg;Sala" />
+    </owl:ObjectProperty>
+
     <owl:Class rdf:about="&eg;NaoEncontrado">
         <rdfs:subClassOf rdf:resource="&eg;Smartphone" />
     </owl:Class>
@@ -61,17 +66,27 @@
         </owl:equivalentClass>
     </owl:Class>
 
-    <owl:Class rdf:about="&eg;SalaComGargalo">
+    <owl:Class rdf:about="urn:x-hp:eg/SalaComGargalo">
         <owl:equivalentClass>
-            <rdf:Description>
+            <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&eg;SalaCheia" />
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="&eg;temMedico" />
-                        <owl:someValuesFrom rdf:resource="&eg;NaoVeioTrabalhar" />
+                        <owl:onProperty rdf:resource="&eg;hasConnectionTo" />
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="&eg;Sala"/>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="&eg;temMedico"/>
+                                        <owl:someValuesFrom rdf:resource="&eg;NaoVeioTrabalhar"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
                     </owl:Restriction>
-                    <owl:Class rdf:about="&eg;SalaCheia" />
                 </owl:intersectionOf>
-            </rdf:Description>
+            </owl:Class>
         </owl:equivalentClass>
     </owl:Class>
 

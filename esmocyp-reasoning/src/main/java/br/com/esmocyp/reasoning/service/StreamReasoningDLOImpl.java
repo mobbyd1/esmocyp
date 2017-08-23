@@ -39,10 +39,11 @@ public class StreamReasoningDLOImpl extends RdfStream implements StreamReasoning
 
         String queryBody = "REGISTER QUERY staticKnowledge AS "
                 + "PREFIX :<urn:x-hp:eg/> "
-                + "SELECT ?s "
+                + "SELECT ?s ?s1 "
                 + "FROM STREAM <http://streamreasoning.org/streams/hospital> [RANGE 5s STEP 1s] "
                 + "FROM <http://streamreasoning.org/hospital-data> "
                 + "WHERE { "
+                + "?s :hasConnectionTo ?s1 . "
                 + "?s a :SalaComGargalo . "
                 + "} ";
 

@@ -9,7 +9,7 @@ import com.espertech.esper.client.EPRuntime;
  */
 public class SensorDataStream implements Runnable {
 
-    private static final String ROOM_ID = "salaDoRuhan";
+    private static final String ROOM_ID = "saladeEspera1";
     private static final String SMARTPHONE_ID = "smartphoneDoRuhan";
     private EPRuntime epRuntime;
 
