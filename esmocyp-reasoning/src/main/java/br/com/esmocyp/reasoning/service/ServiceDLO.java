@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 public class ServiceDLO {
 
     @Autowired
-    private RDFStreamListener rdfStreamListener;
+    private MessageConsumerCallback rdfStreamListener;
 
     @Autowired
     private MessageConsumerDLO messageConsumerDLO;

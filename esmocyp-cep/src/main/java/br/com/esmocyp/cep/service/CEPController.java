@@ -1,11 +1,12 @@
 package br.com.esmocyp.cep.service;
 
+import br.com.esmocyp.cep.listeners.DoctorEventListenerDLO;
+import br.com.esmocyp.cep.model.DoctorSensorData;
 import br.com.esmocyp.cep.model.EnteringRoomSensorData;
 import br.com.esmocyp.cep.model.LeavingRoomSensorData;
 import com.espertech.esper.client.*;
-import br.com.esmocyp.cep.listeners.DoctorEventListener;
+import br.com.esmocyp.cep.listeners.DoctorEventListenerDLOImpl;
 import br.com.esmocyp.cep.listeners.FullRoomEventListener;
-import br.com.esmocyp.messaging.model.DoctorSensorData;
 import br.com.esmocyp.cep.util.GPSIsInArea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ import javax.annotation.PostConstruct;
 public class CEPController {
 
     @Autowired
-    private DoctorEventListener doctorEventListener;
+    private DoctorEventListenerDLO doctorEventListener;
 
     @Autowired
     private FullRoomEventListener fullRoomEventListener;
@@ -42,9 +43,28 @@ public class CEPController {
         epRuntime = cep.getEPRuntime();
         final EPAdministrator cepAdm = cep.getEPAdministrator();
 
-        EPStatement eplDoctor = cepAdm.createEPL("SELECT DISTINCT idSmartphone " +
-                "FROM DoctorSensorData.win:time_batch(1 sec) " +
-                "WHERE gpsIsInArea(latitude, longitude) = false"
+        cepAdm.createEPL(
+                "INSERT INTO CountDoctorNotInHospital " +
+                    "SELECT DSD.idSmartphone as idSmartphone, count(*) as count " +
+                    "FROM DoctorSensorData.win:time_batch(10 sec) as DSD " +
+                    "WHERE gpsIsInArea(latitude, longitude) = false " +
+                    "GROUP BY DSD.idSmartphone" );
+
+        cepAdm.createEPL(
+                "INSERT INTO CountDoctorInHospital " +
+                        "SELECT DSD.idSmartphone as idSmartphone, count(*) as count " +
+                        "FROM DoctorSensorData.win:time_batch(10 sec) as DSD " +
+                        "WHERE gpsIsInArea(latitude, longitude) = true " +
+                        "GROUP BY DSD.idSmartphone" );
+
+        EPStatement eplDoctor = cepAdm.createEPL(
+                "SELECT  CDNH.idSmartphone as idSmartphone " +
+                        ", CDNH.count as notInHospitalCount " +
+                        ", CDH.count as inHospitalCount " +
+                    "FROM CountDoctorNotInHospital.win:length(1) CDNH " +
+                    "LEFT OUTER JOIN " +
+                    "   CountDoctorInHospital.win:length(1) CDH " +
+                    "ON CDNH.idSmartphone = CDH.idSmartphone"
         );
 
         cepAdm.createEPL(
@@ -66,9 +86,9 @@ public class CEPController {
                         " , CER.roomId as enteringRoomId" +
                         " , CLR.count as leavingCount" +
                         " , CLR.roomId as  leavingRoomId " +
-                        "FROM CountEnteringRoomSensorData.win:time(1 sec) as CER " +
+                        "FROM CountEnteringRoomSensorData.win:length(1) as CER " +
                         "LEFT OUTER JOIN " +
-                        "       CountLeavingRoomSensorData.win:time(1 sec) as CLR " +
+                        "       CountLeavingRoomSensorData.win:length(1) as CLR " +
                         "ON CER.roomId = CLR.roomId "
         );
 
