@@ -10,7 +10,6 @@ import com.espertech.esper.client.EPRuntime;
 public class SensorDataStream implements Runnable {
 
     private static final String ROOM_ID = "saladeEspera1";
-    private static final String SMARTPHONE_ID = "smartphoneDoRuhan";
     private EPRuntime epRuntime;
 
     public SensorDataStream( final EPRuntime epRuntime ) {
@@ -19,31 +18,62 @@ public class SensorDataStream implements Runnable {
 
     public void run() {
 
-        int i = 1;
+        int i = 0;
         while( true ) {
-
-            if( i > 1 ) {
+//           if( i < 5 ) {
                 final EnteringRoomSensorData enteringRoomSensorData = new EnteringRoomSensorData();
                 enteringRoomSensorData.setRoomId( ROOM_ID );
-                enteringRoomSensorData.setIdSmartphone( SMARTPHONE_ID );
 
                 epRuntime.sendEvent( enteringRoomSensorData );
 
-            } else {
-                final LeavingRoomSensorData leavingRoomSensorData = new LeavingRoomSensorData();
-                leavingRoomSensorData.setRoomId( ROOM_ID );
-                leavingRoomSensorData.setIdSmartphone( SMARTPHONE_ID );
+//           } else if( i < 10 ) {
+//                final LeavingRoomSensorData leavingRoomSensorData = new LeavingRoomSensorData();
+//                leavingRoomSensorData.setRoomId( ROOM_ID );
+//
+//                epRuntime.sendEvent( leavingRoomSensorData );
+//           }
 
-                epRuntime.sendEvent( leavingRoomSensorData );
-            }
+           try {
 
-            try {
-                Thread.sleep( 1 );
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+               Thread.sleep( 1000 );
+
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
 
             i++;
         }
+
+//        for (int i = 0; i < 10; i++) {
+//
+//            if (i < 5) {
+//                final LeavingRoomSensorData leavingRoomSensorData = new LeavingRoomSensorData();
+//                leavingRoomSensorData.setRoomId(ROOM_ID);
+//
+//                epRuntime.sendEvent(leavingRoomSensorData);
+//
+//            } else {
+//                final EnteringRoomSensorData enteringRoomSensorData = new EnteringRoomSensorData();
+//                enteringRoomSensorData.setRoomId(ROOM_ID);
+//
+//                epRuntime.sendEvent(enteringRoomSensorData);
+//            }
+//
+//            try {
+//
+//                Thread.sleep(1000);
+//
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        try {
+//
+//            Thread.sleep(10000);
+//
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }

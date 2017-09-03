@@ -1,12 +1,12 @@
 package br.com.esmocyp.cep.service;
 
 import br.com.esmocyp.cep.listeners.DoctorEventListenerDLO;
+import br.com.esmocyp.cep.listeners.FullRoomEventListenerDLO;
 import br.com.esmocyp.cep.model.DoctorSensorData;
 import br.com.esmocyp.cep.model.EnteringRoomSensorData;
 import br.com.esmocyp.cep.model.LeavingRoomSensorData;
 import com.espertech.esper.client.*;
-import br.com.esmocyp.cep.listeners.DoctorEventListenerDLOImpl;
-import br.com.esmocyp.cep.listeners.FullRoomEventListener;
+import br.com.esmocyp.cep.listeners.FullRoomEventListenerDLOImpl;
 import br.com.esmocyp.cep.util.GPSIsInArea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,9 +23,11 @@ public class CEPController {
     private DoctorEventListenerDLO doctorEventListener;
 
     @Autowired
-    private FullRoomEventListener fullRoomEventListener;
+    private FullRoomEventListenerDLO fullRoomEventListener;
 
     private EPRuntime epRuntime;
+
+    private EPServiceProvider cep;
 
     @PostConstruct
     public void init() {
@@ -37,7 +39,7 @@ public class CEPController {
         cepConfig.addPlugInSingleRowFunction("gpsIsInArea",
                 GPSIsInArea.class.getName(), "gpsIsInArea");
 
-        final EPServiceProvider cep = EPServiceProviderManager
+        cep = EPServiceProviderManager
                 .getProvider("myCEPEngine", cepConfig);
 
         epRuntime = cep.getEPRuntime();
@@ -64,20 +66,21 @@ public class CEPController {
                     "FROM CountDoctorNotInHospital.win:length(1) CDNH " +
                     "LEFT OUTER JOIN " +
                     "   CountDoctorInHospital.win:length(1) CDH " +
-                    "ON CDNH.idSmartphone = CDH.idSmartphone"
+                    "ON CDNH.idSmartphone = CDH.idSmartphone " +
+                    "WHERE CDNH.count <> 0 "
         );
 
         cepAdm.createEPL(
                 "INSERT INTO CountEnteringRoomSensorData " +
                         "SELECT ER.roomId as roomId, count(*) as count " +
-                        "FROM EnteringRoomSensorData.win:time(1 sec) as ER " +
+                        "FROM EnteringRoomSensorData.win:time_batch(10 sec) as ER " +
                         "GROUP BY ER.roomId"
         );
 
         cepAdm.createEPL(
                 "INSERT INTO CountLeavingRoomSensorData " +
                         "SELECT LR.roomId as roomId, count(*) as count " +
-                        "FROM LeavingRoomSensorData.win:time(1 sec) as LR " +
+                        "FROM LeavingRoomSensorData.win:time_batch(10 sec) as LR " +
                         "GROUP BY LR.roomId"
         );
 
@@ -89,14 +92,22 @@ public class CEPController {
                         "FROM CountEnteringRoomSensorData.win:length(1) as CER " +
                         "LEFT OUTER JOIN " +
                         "       CountLeavingRoomSensorData.win:length(1) as CLR " +
-                        "ON CER.roomId = CLR.roomId "
+                        "ON CER.roomId = CLR.roomId " +
+                        "WHERE CER.count <> 0"
         );
 
         eplDoctor.addListener( doctorEventListener );
         eplFullRoom.addListener( fullRoomEventListener);
+
     }
 
     public EPRuntime getEpRuntime() {
         return epRuntime;
+    }
+
+    public void destroy() {
+        if( cep != null ) {
+            cep.destroy();
+        }
     }
 }

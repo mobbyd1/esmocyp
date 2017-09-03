@@ -1,6 +1,7 @@
 package br.com.esmocyp.reasoning.service;
 
 import br.com.esmocyp.messaging.model.RdfMessage;
+import br.com.esmocyp.reasoning.listeners.CustomCallback;
 import eu.larkc.csparql.cep.api.RdfQuadruple;
 import eu.larkc.csparql.cep.api.RdfStream;
 import eu.larkc.csparql.common.utils.CsparqlUtils;
@@ -8,6 +9,7 @@ import eu.larkc.csparql.common.utils.ReasonerChainingType;
 import eu.larkc.csparql.core.engine.ConsoleFormatter;
 import eu.larkc.csparql.core.engine.CsparqlEngineImpl;
 import eu.larkc.csparql.core.engine.CsparqlQueryResultProxy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -22,11 +24,13 @@ public class StreamReasoningDLOImpl extends RdfStream implements StreamReasoning
 
     private static String BASE_URL = "urn:x-hp:eg/";
 
+    @Autowired
+    CustomCallback customCallback;
+
     public StreamReasoningDLOImpl() {
         super( "http://streamreasoning.org/streams/hospital" );
     }
 
-    @PostConstruct
     public void init() throws Exception {
 
         final ClassLoader classLoader = StreamReasoningDLOImpl.class.getClassLoader();
@@ -47,7 +51,7 @@ public class StreamReasoningDLOImpl extends RdfStream implements StreamReasoning
                 + "?s a :SalaComGargalo . "
                 + "} ";
 
-        File esmocypData = new File(classLoader.getResource("esmocypData.rdf").getFile());
+        File esmocypData = new File(classLoader.getResource("a-box-test/esmocypData.rdf").getFile());
         String roomConnectionPath = esmocypData.getAbsolutePath();
 
         engine.putStaticNamedModel("http://streamreasoning.org/hospital-data", CsparqlUtils.serializeRDFFile(roomConnectionPath));
@@ -58,7 +62,7 @@ public class StreamReasoningDLOImpl extends RdfStream implements StreamReasoning
         CsparqlQueryResultProxy c = engine.registerQuery(queryBody, false);
 
         //Attach a result consumer to the query result proxy to print the results on the console
-        c.addObserver(new ConsoleFormatter());
+        c.addObserver( customCallback );
 
         File tboxFile = new File(classLoader.getResource("tbox-esmocyp.rdf").getFile());
         String tboxPath = tboxFile.getAbsolutePath();

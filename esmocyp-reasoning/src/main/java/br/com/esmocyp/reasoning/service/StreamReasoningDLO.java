@@ -7,5 +7,6 @@ import org.springframework.stereotype.Component;
  * Created by ruhandosreis on 18/08/17.
  */
 public interface StreamReasoningDLO {
+    void init() throws Exception;
     void insertTriple( RdfMessage triple );
 }

@@ -18,6 +18,7 @@ public class DoctorEventListenerDLOImpl implements DoctorEventListenerDLO {
 
     private static String BASE_URL = "urn:x-hp:eg/";
 
+    @Autowired
     private MessageProducerDLO messageProducerDLO;
 
     @Override
@@ -31,7 +32,6 @@ public class DoctorEventListenerDLOImpl implements DoctorEventListenerDLO {
             final Long inHospitalCount = ( Long ) eventBean.get("inHospitalCount");
 
             processDoctorEventListener( idSmartphone, inHospitalCount, notInHospitalCount );
-
         }
     }
 
@@ -48,7 +48,7 @@ public class DoctorEventListenerDLOImpl implements DoctorEventListenerDLO {
             rdfMessage.setPredicate("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
             rdfMessage.setObject(BASE_URL + "NaoEncontrado");
 
-           // messageProducerDLO.produceMessage(EsmocypTopic.CEP_RESULT_TOPIC, rdfMessage);
+            messageProducerDLO.produceMessage(EsmocypTopic.CEP_RESULT_TOPIC, rdfMessage);
         }
     }
 }

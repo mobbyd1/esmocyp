@@ -8,14 +8,17 @@ import com.espertech.esper.client.UpdateListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * Created by ruhandosreis on 16/08/17.
  */
 @Component
-public class FullRoomEventListener implements UpdateListener {
+public class FullRoomEventListenerDLOImpl implements FullRoomEventListenerDLO {
 
     private static String BASE_URL = "urn:x-hp:eg/";
 
+    @Autowired
     private MessageProducerDLO messageProducerDLO;
 
     @Override
@@ -29,14 +32,22 @@ public class FullRoomEventListener implements UpdateListener {
 
             final String roomId = ( String ) eventBean.get("enteringRoomId");
 
-            if( ( leavingCount == null && enteringCount != null ) || enteringCount > leavingCount ) {
-                final RdfMessage rdfMessage = new RdfMessage();
-                rdfMessage.setSubject(BASE_URL + roomId);
-                rdfMessage.setPredicate("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
-                rdfMessage.setObject(BASE_URL + "SalaCheia");
+            processRoomEventListener( roomId, enteringCount, leavingCount );
+        }
+    }
 
-              //  messageProducerDLO.produceMessage( EsmocypTopic.CEP_RESULT_TOPIC, rdfMessage );
-            }
+    @Override
+    public void processRoomEventListener(String roomId, Long entering, Long leaving) {
+
+        System.out.println( new Date() + " Entering: " + entering + " | Leaving: " + leaving );
+
+        if( ( leaving == null && entering != null ) || entering > leaving ) {
+            final RdfMessage rdfMessage = new RdfMessage();
+            rdfMessage.setSubject(BASE_URL + roomId);
+            rdfMessage.setPredicate("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+            rdfMessage.setObject(BASE_URL + "SalaCheia");
+
+           messageProducerDLO.produceMessage( EsmocypTopic.CEP_RESULT_TOPIC, rdfMessage );
         }
     }
 }

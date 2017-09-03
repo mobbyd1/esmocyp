@@ -21,8 +21,12 @@ public class ServiceDLO {
     @Autowired
     private MessageConsumerDLO messageConsumerDLO;
 
+    @Autowired
+    StreamReasoningDLO streamReasoningDLO;
+
     @PostConstruct
-    public void init() {
+    public void init() throws Exception {
         messageConsumerDLO.registerConsumer( EsmocypTopic.CEP_RESULT_TOPIC, rdfStreamListener );
+        streamReasoningDLO.init();
     }
 }
