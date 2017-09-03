@@ -7,6 +7,8 @@ import java.lang.reflect.Type;
 
 /**
  * Created by ruhandosreis on 16/08/17.
+ *
+ * Utility class to deserialize object of the interface IMessage
  */
 public class ConvertableDeserializer<T extends IMessage> implements JsonDeserializer<T> {
 

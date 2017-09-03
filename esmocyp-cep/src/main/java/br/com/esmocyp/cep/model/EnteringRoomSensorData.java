@@ -2,25 +2,21 @@ package br.com.esmocyp.cep.model;
 
 /**
  * Created by ruhandosreis on 29/04/17.
+ *
+ * This class represents a stream of entering a room
  */
 public class EnteringRoomSensorData {
 
+    /**
+     * Room identification
+     */
     private String roomId;
-    private String idSmartphone;
-
-    public String getRoomId() {
-        return roomId;
-    }
 
     public void setRoomId(String roomId) {
         this.roomId = roomId;
     }
 
-    public String getIdSmartphone() {
-        return idSmartphone;
-    }
-
-    public void setIdSmartphone(String idSmartphone) {
-        this.idSmartphone = idSmartphone;
+    public String getRoomId() {
+        return roomId;
     }
 }

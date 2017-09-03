@@ -2,12 +2,29 @@ package br.com.esmocyp.messaging.model;
 
 /**
  * Created by ruhandosreis on 16/08/17.
+ *
+ * Represents a RDF triple that is a message
  */
 public class RdfMessage implements IMessage {
 
+    /**
+     * The class name
+     */
     private final String className;
+
+    /**
+     * RDF subject
+     */
     private String subject;
+
+    /**
+     * RDF predicate
+     */
     private String predicate;
+
+    /**
+     * RDF object
+     */
     private String object;
 
     public RdfMessage() {

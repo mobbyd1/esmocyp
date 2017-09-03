@@ -12,6 +12,9 @@ import java.util.Date;
 
 /**
  * Created by ruhandosreis on 16/08/17.
+ *
+ * This class is the listener of the EnteringRoomSensorData and LeavingRoomSensorData rules
+ * It genarates new RDF triples and send then to the broker.
  */
 @Component
 public class FullRoomEventListenerDLOImpl implements FullRoomEventListenerDLO {

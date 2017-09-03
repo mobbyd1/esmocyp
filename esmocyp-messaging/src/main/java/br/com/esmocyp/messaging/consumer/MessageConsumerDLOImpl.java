@@ -11,6 +11,9 @@ import java.util.Properties;
 
 /**
  * Created by ruhandosreis on 16/08/17.
+ *
+ * This class opens a connection to the broker to consume new messages
+ * Also creates new threads to consume the messages
  */
 @Component
 public class MessageConsumerDLOImpl implements MessageConsumerDLO {
@@ -32,6 +35,7 @@ public class MessageConsumerDLOImpl implements MessageConsumerDLO {
         KafkaConsumer<String, String> consumer = new KafkaConsumer
                 <String, String>(props);
 
+        // create a new consumer thread
         final ConsumerThread consumerThread = new ConsumerThread(consumer, topicName, callback);
 
         final Thread thread = new Thread(consumerThread);

@@ -2,6 +2,8 @@ package br.com.esmocyp.cep.util;
 
 /**
  * Created by ruhandosreis on 17/06/17.
+ *
+ * Utility class to test if a latitude and longitude is in a pre-defined area
  */
 public class GPSIsInArea {
 
@@ -9,6 +11,12 @@ public class GPSIsInArea {
     private static final Double DEFAULT_LONGITUDE = -43.255070;
     private static final double RADIUS = 500;
 
+    /**
+     *
+     * @param latitude
+     * @param longitude
+     * @return
+     */
     public static boolean gpsIsInArea( final Double latitude, final Double longitude ) {
         final double radius = 6371; // Earth's radius in Km
 
@@ -16,6 +24,6 @@ public class GPSIsInArea {
                 Math.cos(latitude) * Math.cos(DEFAULT_LATITUDE) *
                         Math.cos(longitude - DEFAULT_LONGITUDE)) * radius;
 
-        return ( distanceInKM * 1000 ) <= radius;
+        return ( distanceInKM * 1000 ) <= RADIUS;
     }
 }

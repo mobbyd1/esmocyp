@@ -6,6 +6,8 @@ import com.espertech.esper.client.EPRuntime;
 
 /**
  * Created by ruhan on 23/04/17.
+ *
+ * Test data for in/out the general waiting room
  */
 public class SensorDataStream implements Runnable {
 
@@ -18,62 +20,20 @@ public class SensorDataStream implements Runnable {
 
     public void run() {
 
-        int i = 0;
         while( true ) {
-//           if( i < 5 ) {
-                final EnteringRoomSensorData enteringRoomSensorData = new EnteringRoomSensorData();
-                enteringRoomSensorData.setRoomId( ROOM_ID );
 
-                epRuntime.sendEvent( enteringRoomSensorData );
+            final EnteringRoomSensorData enteringRoomSensorData = new EnteringRoomSensorData();
+            enteringRoomSensorData.setRoomId( ROOM_ID );
 
-//           } else if( i < 10 ) {
-//                final LeavingRoomSensorData leavingRoomSensorData = new LeavingRoomSensorData();
-//                leavingRoomSensorData.setRoomId( ROOM_ID );
-//
-//                epRuntime.sendEvent( leavingRoomSensorData );
-//           }
+            epRuntime.sendEvent( enteringRoomSensorData );
 
-           try {
+            try {
 
                Thread.sleep( 1000 );
 
-           } catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                e.printStackTrace();
-           }
-
-            i++;
+            }
         }
-
-//        for (int i = 0; i < 10; i++) {
-//
-//            if (i < 5) {
-//                final LeavingRoomSensorData leavingRoomSensorData = new LeavingRoomSensorData();
-//                leavingRoomSensorData.setRoomId(ROOM_ID);
-//
-//                epRuntime.sendEvent(leavingRoomSensorData);
-//
-//            } else {
-//                final EnteringRoomSensorData enteringRoomSensorData = new EnteringRoomSensorData();
-//                enteringRoomSensorData.setRoomId(ROOM_ID);
-//
-//                epRuntime.sendEvent(enteringRoomSensorData);
-//            }
-//
-//            try {
-//
-//                Thread.sleep(1000);
-//
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        try {
-//
-//            Thread.sleep(10000);
-//
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 }

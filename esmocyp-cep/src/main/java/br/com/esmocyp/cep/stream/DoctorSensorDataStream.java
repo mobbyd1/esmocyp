@@ -4,6 +4,8 @@ import br.com.esmocyp.cep.model.DoctorSensorData;
 import com.espertech.esper.client.EPRuntime;
 /**
  * Created by ruhan on 28/05/17.
+ *
+ * Test data for doctor in/out the hospital
  */
 public class DoctorSensorDataStream implements Runnable {
 
@@ -17,26 +19,15 @@ public class DoctorSensorDataStream implements Runnable {
     @Override
     public void run() {
 
-        for( int i = 0; i < 10; i++ ) {
+        while( true ) {
 
-       //  if( i < 5 ) {
-//                final DoctorSensorData doctorSensorData = new DoctorSensorData();
-//
-//                doctorSensorData.setIdSmartphone(SMARTPHONE_ID);
-//                doctorSensorData.setLatitude(-22.866891);
-//                doctorSensorData.setLongitude(-43.255070);
-//
-//                epRuntime.sendEvent(doctorSensorData);
+            final DoctorSensorData doctorSensorData = new DoctorSensorData();
 
-//        } else {
-                final DoctorSensorData doctorSensorData = new DoctorSensorData();
+            doctorSensorData.setIdSmartphone(SMARTPHONE_ID);
+            doctorSensorData.setLatitude( 1d );
+            doctorSensorData.setLongitude( 1d );
 
-                doctorSensorData.setIdSmartphone(SMARTPHONE_ID);
-                doctorSensorData.setLatitude( 1d );
-                doctorSensorData.setLongitude( 1d );
-
-                epRuntime.sendEvent(doctorSensorData);
-//        }
+            epRuntime.sendEvent(doctorSensorData);
 
             try {
                 Thread.sleep( 1000 );

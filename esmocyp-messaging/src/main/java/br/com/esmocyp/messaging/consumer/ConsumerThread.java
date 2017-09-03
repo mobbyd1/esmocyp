@@ -12,6 +12,9 @@ import java.util.Arrays;
 
 /**
  * Created by ruhandosreis on 16/08/17.
+ *
+ * Each topic cosumer runs in a different thread
+ * This is necessary to not block the application
  */
 public class ConsumerThread implements Runnable {
 
@@ -29,6 +32,8 @@ public class ConsumerThread implements Runnable {
     }
 
     public void run() {
+        assert( consumer != null );
+
         final GsonBuilder builder = new GsonBuilder();
 
         // Adding custom deserializers
@@ -36,12 +41,18 @@ public class ConsumerThread implements Runnable {
         final Gson gson = builder.create();
 
         while( true ) {
+            // verify if it has new messages to process
             final ConsumerRecords<String, String> records = consumer.poll( 1000 );
 
             for( final ConsumerRecord<String, String> record : records ) {
                 final String value = record.value();
 
+                assert( value != null );
+
+                // deserialize the message
                 final IMessage message = gson.fromJson(value, IMessage.class);
+
+                // executes the callback
                 callback.executeConsumer( message );
             }
         }

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by ruhandosreis on 18/08/17.
+ *
+ * Listener responsible to insert new RDF messages to the continous query engine
  */
 @Component
 public class RDFStreamListener implements MessageConsumerCallback {

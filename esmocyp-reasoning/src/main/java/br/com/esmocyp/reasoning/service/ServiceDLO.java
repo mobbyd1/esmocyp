@@ -11,6 +11,10 @@ import javax.annotation.PostConstruct;
 
 /**
  * Created by ruhandosreis on 18/08/17.
+ *
+ * This class is responsible for initiate the reasoning service.
+ * The rdfStreamListener is registered as a callback for new RDF messages
+ *
  */
 @Component
 public class ServiceDLO {
@@ -24,9 +28,13 @@ public class ServiceDLO {
     @Autowired
     StreamReasoningDLO streamReasoningDLO;
 
+    /**
+     * Initializes the messageConsumer and the continous query engine
+     * @throws Exception
+     */
     @PostConstruct
     public void init() throws Exception {
         messageConsumerDLO.registerConsumer( EsmocypTopic.CEP_RESULT_TOPIC, rdfStreamListener );
-        streamReasoningDLO.init();
+        streamReasoningDLO.init( "a-box/esmocypData.rdf", "t-box/tbox-esmocyp.rdf" );
     }
 }

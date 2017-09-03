@@ -15,6 +15,8 @@ import javax.annotation.PostConstruct;
 
 /**
  * Created by ruhandosreis on 16/08/17.
+ *
+ * This class is responsible to initialize the cep rules.
  */
 @Component
 public class CEPController {
@@ -29,13 +31,19 @@ public class CEPController {
 
     private EPServiceProvider cep;
 
+    /**
+     * Initialize the cep rules
+     */
     @PostConstruct
     public void init() {
         final Configuration cepConfig = new Configuration();
+
+        // define the event types
         cepConfig.addEventType("DoctorSensorData", DoctorSensorData.class.getName());
         cepConfig.addEventType("LeavingRoomSensorData", LeavingRoomSensorData.class.getName());
         cepConfig.addEventType("EnteringRoomSensorData", EnteringRoomSensorData.class.getName());
 
+        // custom method to use in the queries
         cepConfig.addPlugInSingleRowFunction("gpsIsInArea",
                 GPSIsInArea.class.getName(), "gpsIsInArea");
 
@@ -96,15 +104,23 @@ public class CEPController {
                         "WHERE CER.count <> 0"
         );
 
+        // adding the listeners for the query result processing
         eplDoctor.addListener( doctorEventListener );
         eplFullRoom.addListener( fullRoomEventListener);
 
     }
 
+    /**
+     * Gets the event processing runtime
+     * @return
+     */
     public EPRuntime getEpRuntime() {
         return epRuntime;
     }
 
+    /**
+     * Finalize the cep rules
+     */
     public void destroy() {
         if( cep != null ) {
             cep.destroy();

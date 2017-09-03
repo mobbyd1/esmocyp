@@ -12,6 +12,9 @@ import java.util.Date;
 
 /**
  * Created by ruhandosreis on 16/08/17.
+ *
+ * This class is the listener of the DoctorSensorData rules
+ * It generates new RDF triples and send then to the broker.
  */
 @Component
 public class DoctorEventListenerDLOImpl implements DoctorEventListenerDLO {
@@ -23,6 +26,8 @@ public class DoctorEventListenerDLOImpl implements DoctorEventListenerDLO {
 
     @Override
     public void update(EventBean[] eventBeans, EventBean[] eventBeans1) {
+
+        assert( eventBeans != null );
 
         for( int i = 0; i < eventBeans.length; i++ ) {
             final EventBean eventBean = eventBeans[i];
@@ -37,6 +42,8 @@ public class DoctorEventListenerDLOImpl implements DoctorEventListenerDLO {
 
     @Override
     public void processDoctorEventListener(String smartphoneId, Long in, Long out) {
+
+        assert( smartphoneId != null );
 
         System.out.println( new Date() + " In: " + in + " | Out: " + out );
 

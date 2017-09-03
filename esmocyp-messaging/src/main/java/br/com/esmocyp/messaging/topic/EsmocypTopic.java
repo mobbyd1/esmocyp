@@ -2,9 +2,9 @@ package br.com.esmocyp.messaging.topic;
 
 /**
  * Created by ruhandosreis on 15/08/17.
+ *
+ * Topics available to post messages
  */
 public enum EsmocypTopic {
-    STREAM_TOPIC,
-    CEP_RESULT_TOPIC,
-    REASONING_RESULT_TOPIC;
+    CEP_RESULT_TOPIC;
 }

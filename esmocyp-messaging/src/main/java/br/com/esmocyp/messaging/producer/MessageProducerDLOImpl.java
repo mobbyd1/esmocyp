@@ -13,7 +13,10 @@ import java.util.Properties;
 
 /**
  * Created by ruhandosreis on 16/08/17.
+ *
+ * This class is responsible to open a connection to the broker and send new messages
  */
+
 @Component
 public class MessageProducerDLOImpl implements MessageProducerDLO {
 
@@ -51,6 +54,9 @@ public class MessageProducerDLOImpl implements MessageProducerDLO {
     }
 
     public void produceMessage(EsmocypTopic topic, IMessage message) {
+        assert( topic != null );
+        assert( message != null );
+
         String topicName = topic.toString();
 
         final Gson gson = new Gson();

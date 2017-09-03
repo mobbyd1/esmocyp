@@ -5,8 +5,10 @@ package br.com.esmocyp.cep.model;
  */
 public class LeavingRoomSensorData {
 
+    /**
+     * Room identification
+     */
     private String roomId;
-    private String idSmartphone;
 
     public String getRoomId() {
         return roomId;
@@ -16,11 +18,4 @@ public class LeavingRoomSensorData {
         this.roomId = roomId;
     }
 
-    public String getIdSmartphone() {
-        return idSmartphone;
-    }
-
-    public void setIdSmartphone(String idSmartphone) {
-        this.idSmartphone = idSmartphone;
-    }
 }

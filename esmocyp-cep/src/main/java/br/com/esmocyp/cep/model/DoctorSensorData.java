@@ -2,11 +2,24 @@ package br.com.esmocyp.cep.model;
 
 /**
  * Created by ruhan on 23/04/17.
+ *
+ * This class represents a stream of geo-location smartphone data
  */
 public class DoctorSensorData {
 
+    /**
+     * Smartphone UUID
+     */
     private String idSmartphone;
+
+    /**
+     * Smartphone latitude
+     */
     private double latitude;
+
+    /**
+     * Smartphone longitude
+     */
     private double longitude;
 
     public String getIdSmartphone() {
