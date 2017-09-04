@@ -1,0 +1,85 @@
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.5.1.RELEASE)
+
+2017-09-03 18:53:39.720  INFO 35323 --- [           main] br.com.esmocyp.cep.Main                  : Starting Main on Ruhans-MBP with PID 35323 (/Users/ruhan/IdeaProjects/EsmocypEngine/esmocyp/esmocyp-cep/target/classes started by ruhan in /Users/ruhan/IdeaProjects/EsmocypEngine/esmocyp)
+2017-09-03 18:53:39.727  INFO 35323 --- [           main] br.com.esmocyp.cep.Main                  : No active profile set, falling back to default profiles: default
+2017-09-03 18:53:39.837  INFO 35323 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@448ff1a8: startup date [Sun Sep 03 18:53:39 BRT 2017]; root of context hierarchy
+2017-09-03 18:53:40.587  INFO 35323 --- [           main] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+	acks = all
+	batch.size = 16384
+	bootstrap.servers = [localhost:9092]
+	buffer.memory = 33554432
+	client.id = 
+	compression.type = none
+	connections.max.idle.ms = 540000
+	enable.idempotence = false
+	interceptor.classes = null
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 1
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 0
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.apache.kafka.common.serialization.StringSerializer
+
+2017-09-03 18:53:40.710  INFO 35323 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 0.11.0.0
+2017-09-03 18:53:40.710  INFO 35323 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId : cb8625948210849f
+2017-09-03 18:53:40.786  INFO 35323 --- [           main] c.e.e.c.service.EPServiceProviderImpl    : Initializing engine URI 'myCEPEngine' version 4.7.0
+2017-09-03 18:53:42.205  INFO 35323 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-03 18:53:42.219  INFO 35323 --- [           main] br.com.esmocyp.cep.Main                  : Started Main in 2.936 seconds (JVM running for 3.467)
+Sun Sep 03 18:53:52 BRT 2017 Entering: 10 | Leaving: null
+Sun Sep 03 18:53:52 BRT 2017 In: null | Out: 10
+Sun Sep 03 18:54:02 BRT 2017 Entering: 10 | Leaving: null
+Sun Sep 03 18:54:02 BRT 2017 In: null | Out: 10
+Sun Sep 03 18:54:12 BRT 2017 Entering: 10 | Leaving: null
+Sun Sep 03 18:54:12 BRT 2017 In: null | Out: 10
+Sun Sep 03 18:54:22 BRT 2017 Entering: 10 | Leaving: null
+Sun Sep 03 18:54:22 BRT 2017 In: null | Out: 10
+Sun Sep 03 18:54:32 BRT 2017 Entering: 10 | Leaving: null
+Sun Sep 03 18:54:32 BRT 2017 In: null | Out: 10
+2017-09-03 18:54:40.315  INFO 35323 --- [       Thread-2] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@448ff1a8: startup date [Sun Sep 03 18:53:39 BRT 2017]; root of context hierarchy
+2017-09-03 18:54:40.317  INFO 35323 --- [       Thread-2] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+
+Process finished with exit code 130 (interrupted by signal 2: SIGINT)

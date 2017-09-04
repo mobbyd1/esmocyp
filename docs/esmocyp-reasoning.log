@@ -1,0 +1,239 @@
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.5.1.RELEASE)
+
+2017-09-03 18:53:24.394  INFO 35321 --- [           main] br.com.esmocyp.reasoning.Main            : Starting Main on Ruhans-MBP with PID 35321 (/Users/ruhan/IdeaProjects/EsmocypEngine/esmocyp/esmocyp-reasoning/target/classes started by ruhan in /Users/ruhan/IdeaProjects/EsmocypEngine/esmocyp)
+2017-09-03 18:53:24.404  INFO 35321 --- [           main] br.com.esmocyp.reasoning.Main            : No active profile set, falling back to default profiles: default
+2017-09-03 18:53:24.749  INFO 35321 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@166fa74d: startup date [Sun Sep 03 18:53:24 BRT 2017]; root of context hierarchy
+2017-09-03 18:53:25.634  INFO 35321 --- [           main] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+	acks = all
+	batch.size = 16384
+	bootstrap.servers = [localhost:9092]
+	buffer.memory = 33554432
+	client.id = 
+	compression.type = none
+	connections.max.idle.ms = 540000
+	enable.idempotence = false
+	interceptor.classes = null
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 1
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 0
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.apache.kafka.common.serialization.StringSerializer
+
+2017-09-03 18:53:25.924  INFO 35321 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 0.11.0.0
+2017-09-03 18:53:25.924  INFO 35321 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId : cb8625948210849f
+2017-09-03 18:53:26.007  INFO 35321 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	auto.commit.interval.ms = 1000
+	auto.offset.reset = latest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = test
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 30000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+2017-09-03 18:53:26.058  INFO 35321 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 0.11.0.0
+2017-09-03 18:53:26.058  INFO 35321 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId : cb8625948210849f
+2017-09-03 18:53:26.337  INFO 35321 --- [       Thread-2] o.a.k.c.c.internals.AbstractCoordinator  : Discovered coordinator ruhans-mbp:9092 (id: 2147483647 rack: null) for group test.
+2017-09-03 18:53:26.342  INFO 35321 --- [       Thread-2] o.a.k.c.c.internals.ConsumerCoordinator  : Revoking previously assigned partitions [] for group test
+2017-09-03 18:53:26.343  INFO 35321 --- [       Thread-2] o.a.k.c.c.internals.AbstractCoordinator  : (Re-)joining group test
+2017-09-03 18:53:26.369  INFO 35321 --- [       Thread-2] o.a.k.c.c.internals.AbstractCoordinator  : Successfully joined group test with generation 6
+2017-09-03 18:53:26.372  INFO 35321 --- [       Thread-2] o.a.k.c.c.internals.ConsumerCoordinator  : Setting newly assigned partitions [CEP_RESULT_TOPIC-0] for group test
+2017-09-03 18:53:29.414  INFO 35321 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-09-03 18:53:29.433  INFO 35321 --- [           main] br.com.esmocyp.reasoning.Main            : Started Main in 5.467 seconds (JVM running for 6.235)
+
+-------1 results at SystemTime=[1504475633645]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475634238]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475635152]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475636130]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------0 results at SystemTime=[1504475637091]--------
+
+
+-------1 results at SystemTime=[1504475643118]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475644150]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475645110]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475646105]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475647106]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475653120]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475654105]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475655117]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475656166]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475657149]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475663145]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475664104]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475665086]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475666105]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475667106]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475673101]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475674117]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475675105]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475676116]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+
+-------1 results at SystemTime=[1504475677145]--------
+urn:x-hp:eg/saladeEspera1	urn:x-hp:eg/salaDoRuhan	
+
+2017-09-03 18:54:37.743  INFO 35321 --- [       Thread-3] s.c.a.AnnotationConfigApplicationContext : Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@166fa74d: startup date [Sun Sep 03 18:53:24 BRT 2017]; root of context hierarchy
+2017-09-03 18:54:37.746  INFO 35321 --- [       Thread-3] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+
+Process finished with exit code 130 (interrupted by signal 2: SIGINT)
