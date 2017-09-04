@@ -13,8 +13,8 @@ public interface StreamReasoningDLO {
     /**
      * Initializes the continous query engine
      *
-     * @param aBoxFile
-     * @param tBoxFile
+     * @param aBoxFile the static rdf data (a-box) to be loaded by the engine
+     * @param tBoxFile the ontology (t-box) to be loaded by the engine
      * @throws Exception
      */
     void init( final String aBoxFile, final String tBoxFile ) throws Exception;
@@ -22,7 +22,7 @@ public interface StreamReasoningDLO {
     /**
      * Inserts new RDF triples to the countinous query engine
      *
-     * @param triple
+     * @param triple the RDF triple to be inserted in the engine
      */
     void insertTriple( final RdfMessage triple );
 }
