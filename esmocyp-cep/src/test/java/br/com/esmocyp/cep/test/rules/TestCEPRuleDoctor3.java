@@ -20,6 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -78,10 +79,12 @@ public class TestCEPRuleDoctor3 extends AbstractTestCEPRule {
             Thread.sleep( 1000 );
         }
 
+        Thread.sleep( 10000 );
+
         final ArgumentCaptor<EventBean[]> objectArgumentCaptor1 = ArgumentCaptor.forClass(EventBean[].class);
         final ArgumentCaptor<EventBean[]> objectArgumentCaptor2 = ArgumentCaptor.forClass(EventBean[].class);
 
-        verify( doctorEventListener, times(2) ).update( objectArgumentCaptor1.capture(), objectArgumentCaptor2.capture() );
+        verify( doctorEventListener, atLeast(2) ).update( objectArgumentCaptor1.capture(), objectArgumentCaptor2.capture() );
 
         final List<EventBean[]> listEventBeans = objectArgumentCaptor1.getAllValues();
         final EventBean eventBean = listEventBeans.get(1)[0];

@@ -95,13 +95,12 @@ public class CEPController {
         EPStatement eplFullRoom = cepAdm.createEPL(
                 "SELECT CER.count as enteringCount" +
                         " , CER.roomId as enteringRoomId" +
-                        " , CLR.count as leavingCount" +
-                        " , CLR.roomId as  leavingRoomId " +
+                        " , CLR.count as leavingCount " +
                         "FROM CountEnteringRoomSensorData.win:length(1) as CER " +
                         "LEFT OUTER JOIN " +
                         "       CountLeavingRoomSensorData.win:length(1) as CLR " +
                         "ON CER.roomId = CLR.roomId " +
-                        "WHERE CER.count <> 0"
+                        "WHERE CER.count <> 0 "
         );
 
         // adding the listeners for the query result processing
@@ -123,6 +122,9 @@ public class CEPController {
      */
     public void destroy() {
         if( cep != null ) {
+            final EPAdministrator epAdministrator = cep.getEPAdministrator();
+            epAdministrator.destroyAllStatements();
+
             cep.destroy();
         }
     }

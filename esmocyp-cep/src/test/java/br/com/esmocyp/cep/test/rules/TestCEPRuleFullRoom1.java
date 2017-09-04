@@ -18,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -64,7 +65,7 @@ public class TestCEPRuleFullRoom1 extends AbstractTestCEPRule {
         final ArgumentCaptor<EventBean[]> objectArgumentCaptor1 = ArgumentCaptor.forClass(EventBean[].class);
         final ArgumentCaptor<EventBean[]> objectArgumentCaptor2 = ArgumentCaptor.forClass(EventBean[].class);
 
-        verify( fullRoomEventListener ).update( objectArgumentCaptor1.capture(), objectArgumentCaptor2.capture() );
+        verify( fullRoomEventListener, atLeast(1) ).update( objectArgumentCaptor1.capture(), objectArgumentCaptor2.capture() );
 
         final EventBean[] eventBeans = objectArgumentCaptor1.getValue();
         final EventBean eventBean = eventBeans[0];
